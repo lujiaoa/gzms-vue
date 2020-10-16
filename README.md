@@ -1,6 +1,6 @@
-# minsu
+#乐途古镇
 
-## Project setup
+## 首先要执行的操作
 ```
 npm install
 ```
@@ -10,7 +10,7 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
+### 部署项目的是用
 ```
 npm run build
 ```
