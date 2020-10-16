@@ -17,6 +17,11 @@ import 'mint-ui/lib/style.min.css';
 //注册为Vue的插件
 Vue.use(MintUI)
 
+// 导入vant组件
+import Vant from 'vant';
+import 'vant/lib/index.css';
+
+Vue.use(Vant);
 axios.defaults.baseURL = 'http://62.234.42.153:8306'
 Vue.prototype.axios = axios;
 

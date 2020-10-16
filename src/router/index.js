@@ -3,9 +3,14 @@ import VueRouter from 'vue-router'
 //import Home from '../views/Home.vue'
 import Search from '../views/Search.vue'
 import Details from '../views/Details.vue'
+import Paypage from '../views/Paypage'
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/paypage',
+    component: Paypage
+  },
   {
     path: '/details',
     component: Details
