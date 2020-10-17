@@ -22,7 +22,7 @@ import Vant from 'vant';
 import 'vant/lib/index.css';
 
 Vue.use(Vant);
-axios.defaults.baseURL = 'http://62.234.42.153:8306'
+axios.defaults.baseURL = 'http://127.0.0.1:3000'
 Vue.prototype.axios = axios;
 
 
