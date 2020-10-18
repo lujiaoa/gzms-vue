@@ -4,13 +4,13 @@ import VueRouter from 'vue-router'
 import Search from '../views/Search.vue'
 import Details from '../views/Details.vue'
 import Paypage from '../views/Paypage'
-import OrderList from '../views/OrderList'
+import CheckInPerson from '../views/CheckInPerson'
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/orderList',
-    component: OrderList
+    path: '/checkinperson',
+    component: CheckInPerson
   },
   {
     path: '/paypage',

@@ -2,7 +2,7 @@
   <div class="paypage">
     <!-- 页头标签开始 -->
     <div>
-      <mt-header :title="titleName">
+      <mt-header :title="titleName" class="bgColor">
         <mt-button slot="left" icon="back"></mt-button>
       </mt-header>
     </div>
@@ -12,7 +12,22 @@
       <!-- 内容盒子 -->
       <div class="contentBox">
         <van-cell-group>
-          <van-cell title="入离日期" :value="'共' + liveCount + '晚'" is-link />
+          <van-cell title="入离日期" :value="'共' + getLiveDay + '晚'" is-link   
+                    @click="dateShow = true"
+                    :label=" `${this.getCheckIn}- ${this.getCheckOut}`"/>
+          <!-- 时间弹出层 -->
+          <van-calendar v-model="dateShow" 
+          type="range" 
+          @confirm="onConfirm"
+          text="123"
+          color="#07c160"
+          confirm-disabled-text="请选择离店时间"
+          :formatter="formatter"
+          >
+            <template #title>
+              <p>我就是我</p>
+            </template>
+          </van-calendar>
           <van-cell :title="Housinginformation" class="van-ellipsis" />
           <van-cell
             title="预约后取消扣除部分房费"
@@ -27,13 +42,22 @@
         <van-cell>
           <template #title>
             <span class="custom-title">入住人信息</span>
-            <span class="custom-count">已选0人</span>
           </template>
         </van-cell>
         <div class="btn-margin">
-          <van-button icon="add-o" type="primary" size="small"
-            >增加/编辑</van-button
-          >
+          <div class="checkinPerson" v-if="RealName">
+            <div>
+              <span class="liveinfo">{{RealName}}</span> 
+              <van-tag type="success">获赠保险</van-tag>
+            </div>
+            <div>
+              <span class="liveinfo">身份证号</span>
+              <span>{{userID}}</span>
+            </div>
+          </div>
+          <div class="checkinPerson" v-else>
+            <van-button type="primary" size="small" @click="()=>{$router.push('/')}">请登录</van-button>
+          </div>
         </div>
         <van-divider
           dashed
@@ -52,10 +76,10 @@
       <div class="contentBox">
         <van-cell-group>
           <van-cell
-            :title="'房费' + liveCount + '晚'"
+            :title="'房费' + getLiveDay+ '晚'"
             is-link
             arrow-direction="down"
-            value="￥308"
+            :value= "`￥${Amount}`"
           />
           <van-cell title="房东优惠" is-link value="无可用优惠"></van-cell>
           <van-cell title="平台优惠" is-link value="无可用优惠"></van-cell>
@@ -103,6 +127,8 @@
     <div>
       <van-submit-bar 
       :price="(+Amount)*100" 
+      label="你需支付:"
+      text-align="left"
       :button-text=" '去支付'" 
       @submit="onSubmit" />
     </div>
@@ -112,23 +138,27 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
   data() {
     return {
       titleName: "",
       // 入住时间：
-      checkIn: "2020.10.18",
-      checkOut: "2020.10.23",
-      // 共居住几晚
-      liveCount: "2",
+      checkIn:"",
+      checkOut:"",
       // 房源信息
       Housinginformation: "整套·55平·1居·宜居住2人",
-      // 默认让弹出层隐藏
+      // 默认让弹出层隐藏,这个是支付弹出层
       show: false,
+      // 默认让时间弹出层隐藏
+      dateShow:false,
       weState:'weState',
       aliState:"success",
       payment:"支付宝",
-      Amount:"100.00"
+      // 房子一晚单价
+      unitPrice:100,
+      // 设置一个开关，防止用户频繁提价
+      isSubmit:true
     };
   },
   methods: {
@@ -138,7 +168,7 @@ export default {
           title: "退订规则",
           width: "250",
           message:
-            "chekIn 14：00前取消，所有金额全部退还，\ncheckOut 14:00后取消，扣除未入住首日房费",
+            `${this.getCheckIn} 14：00前取消，所有金额全部退还，\n ${this.getCheckOut} 14:00后取消，扣除未入住首日房费`,
           confirmButtonText: "我知道了",
           confirmButtonColor: "#000",
           messageAlign: "left",
@@ -151,6 +181,25 @@ export default {
     showPopup() {
       this.show = true;
     },
+    // 操作时间组件
+    formatDate(date){
+      // 返回的是时间戳
+      return `${this.moment(date).valueOf()/1000}`;
+    },
+    onConfirm(date){
+      const [start,end] = date;
+      this.dateShow =false;
+      this.checkIn = `${this.formatDate(start)}`;
+      this.checkOut = ` ${this.formatDate(end)}`
+    },
+    formatter(day){
+      if( day.type =="start"){
+        day.bottomInfo="入住";
+      }else if(day.type=="end"){
+        day.bottomInfo = "离店";
+      }
+      return day
+    },
     // 用来修改支付方式
     changePlay(value){
       this.payment=value
@@ -159,7 +208,11 @@ export default {
     },
     // 确定支付
     onSubmit(){
-      console.log('ok')
+      if(this.isSubmit){
+        console.log('ok') 
+      }else{
+
+      }
     }
   },
   watch:{
@@ -176,11 +229,41 @@ export default {
           break;
       }
     }
+  },
+  computed:{
+    // 计算入住和离店之前相差的天数
+    getLiveDay(){
+     return  ( this.checkOut - this.checkIn ) / (1*24*60*60)
+      
+    },
+    // 计算住店日期
+    getCheckIn(){
+      return this.moment.unix( this.checkIn ).format('MM 月 DD 日')
+    },
+    // 计算离店日期
+    getCheckOut(){
+      return this.moment.unix( this.checkOut ).format('MM 月 DD日')
+    },
+    // 支付总价
+    Amount(){
+      return this.unitPrice * (+this.getLiveDay)
+    },
+    // 从vuex中获取时间戳
+    ...mapState({
+      vxcheckIn:'checkIn',
+      RealName:'RealName',
+      userID:'userID'
+    })
   }
+
 };
 </script>
 
 <style scoped>
+/* 设置表头背景颜色 */
+.bgColor{
+  background-color: rgb(44,200,113);
+}
 .contentBox {
   border: 1px solid #fff;
   border-radius: 5px;
@@ -210,7 +293,25 @@ export default {
   font-size: 12px;
 }
 .btn-margin {
-  margin-left: 12px;
+  margin-left: 10px;
+}
+/* 设置入住人信息 */
+.checkinPerson{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-size: 12px;
+}
+.liveinfo{
+  display: inline-block;
+  position: relative;
+  bottom: -4px;
+  margin-right:10px ;
+  width: 60px;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .text-l {
   margin-left: 5px;
