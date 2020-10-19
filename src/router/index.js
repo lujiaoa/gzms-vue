@@ -5,9 +5,14 @@ import Search from '../views/Search.vue'
 import Details from '../views/Details.vue'
 import Paypage from '../views/Paypage'
 import OrderList from '../views/OrderList'
+import OrderDetails from '../views/OrderDetails'
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/orderDetails',
+    component: OrderDetails
+  },
   {
     path: '/orderList',
     component: OrderList
