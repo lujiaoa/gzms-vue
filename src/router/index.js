@@ -5,9 +5,14 @@ import Search from '../views/Search.vue'
 import Details from '../views/Details.vue'
 import Paypage from '../views/Paypage'
 import CheckInPerson from '../views/CheckInPerson'
+import Me from '../views/Me'
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/me',
+    component: Me
+  },
   {
     path: '/checkinperson',
     component: CheckInPerson
