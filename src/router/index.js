@@ -6,6 +6,8 @@ import Details from '../views/Details.vue'
 import Paypage from '../views/Paypage'
 import OrderList from '../views/OrderList'
 import OrderDetails from '../views/OrderDetails'
+import CheckInPerson from '../views/CheckInPerson'
+import Me from '../views/Me'
 Vue.use(VueRouter)
 
 const routes = [
@@ -16,6 +18,14 @@ const routes = [
   {
     path: '/orderList',
     component: OrderList
+  },
+  {
+    path: '/me',
+    component: Me
+  },
+  {
+    path: '/checkinperson',
+    component: CheckInPerson
   },
   {
     path: '/paypage',
