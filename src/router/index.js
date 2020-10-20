@@ -7,6 +7,7 @@ import Paypage from '../views/Paypage'
 import OrderList from '../views/OrderList'
 import OrderDetails from '../views/OrderDetails'
 import CheckInPerson from '../views/CheckInPerson'
+import PaySuccess from '../views/PaySuccess'
 import Me from '../views/Me'
 Vue.use(VueRouter)
 
@@ -14,6 +15,10 @@ const routes = [
   {
     path: '/',
     component:Home
+  },
+  {
+    path: '/paysuccess',
+    component: PaySuccess
   },
   {
     path: '/orderDetails',
