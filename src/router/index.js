@@ -4,23 +4,17 @@ import Home from '../views/Index.vue'
 import Search from '../views/Search.vue'
 import Details from '../views/Details.vue'
 import Paypage from '../views/Paypage'
-<<<<<<< HEAD
 
-=======
 import OrderList from '../views/OrderList'
 import OrderDetails from '../views/OrderDetails'
 import CheckInPerson from '../views/CheckInPerson'
 import PaySuccess from '../views/PaySuccess'
 import Me from '../views/Me'
->>>>>>> 6c0a2110b7c98fb7083a00ee6b330581fd7816a3
 Vue.use(VueRouter)
 
 const routes = [
   
   {
-<<<<<<< HEAD
-    path: '/details/:id',
-=======
     path: '/',
     component:Home
   },
@@ -29,8 +23,9 @@ const routes = [
     component: PaySuccess
   },
   {
-    path: '/orderDetails',
-    component: OrderDetails
+    path: '/orderDetails/:oid',
+    component: OrderDetails,
+    props:true
   },
   {
     path: '/orderList',
@@ -50,7 +45,6 @@ const routes = [
   },
   {
     path: '/details',
->>>>>>> 6c0a2110b7c98fb7083a00ee6b330581fd7816a3
     component: Details
   },
   {
