@@ -1,6 +1,6 @@
 <template>
     <div id="my_footer">
-        <mt-tabbar v-model="tabbar">
+        <mt-tabbar v-model="tabbar" fixed>
             <mt-tab-item id="index">
                 首页
                 <!-- //199E34 -->
