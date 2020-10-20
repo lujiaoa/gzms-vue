@@ -25,7 +25,8 @@ Vue.use(Vant);
 axios.defaults.baseURL = 'http://127.0.0.1:3000'
 Vue.prototype.axios = axios;
 
-
+import myFooter from './components/my-footer.vue';
+Vue.component('my-footer',myFooter);
 Vue.config.productionTip = false
 
 new Vue({
