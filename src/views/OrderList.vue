@@ -31,7 +31,7 @@
           <!-- 单一文档信息开始 -->
           <div>
             <div class="contentBox" v-for="(a,i) of orders" :key="i">
-              <router-link :to="`/order/${a.oid}`" class="card">
+              <router-link :to="`/orderDetails/${a.oid}`" class="card">
                 <!-- 缩略图及简介开始 -->
                 <img src="../assets/img/1-1.png" alt="">
                 <div class="oitem">

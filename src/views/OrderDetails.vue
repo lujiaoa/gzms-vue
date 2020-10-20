@@ -3,7 +3,9 @@
     <!-- 页头标签开始 -->
     <div>
       <mt-header :title="titleName">
-        <mt-button slot="left" icon="back"></mt-button>
+        <router-link to="/orderList" slot="left">
+          <mt-button icon="back"></mt-button>
+        </router-link>
       </mt-header>
     </div>
     <!-- 页头标签结束 -->
@@ -12,7 +14,8 @@
       <!-- 内容盒子 -->
       <div class="contentBox">
         <van-cell-group>
-          <van-cell title="入离日期" :value="'共' + liveCount + '晚'" is-link />
+          <van-cell title="入离日期" :value="'共' + liveCount + '晚'" />
+          <van-cell :value="`${this.checkIn} 14:00  至  ${this.checkOut} 12:00`" />
           <van-cell :title="Housinginformation" class="van-ellipsis" />
           <van-cell
             title="预约后取消扣除部分房费"
@@ -27,14 +30,11 @@
         <van-cell>
           <template #title>
             <span class="custom-title">入住人信息</span>
-            <!-- <span class="custom-count">已选0人</span> -->
           </template>
         </van-cell>
-        <div class="btn-margin">
-          <van-button icon="add-o" type="primary" size="small"
-            >增加/编辑</van-button
-          >
-        </div>
+          <van-cell title="姓名" :value="pName" />
+          <van-cell title="电话" :value="pPhone" />
+          <van-cell title="身份证" :value="pId" />
         <van-divider
           dashed
           :style="{ borderColor: '#9B9B9B', margin: '10px 10px 0' }"
@@ -53,9 +53,7 @@
         <van-cell-group>
           <van-cell
             :title="'房费' + liveCount + '晚'"
-            is-link
-            arrow-direction="down"
-            value="￥308"
+            :value="`￥${parseFloat(Amount).toFixed(2)}`"
           />
           <van-cell title="房东优惠" is-link value="无可用优惠"></van-cell>
           <van-cell title="平台优惠" is-link value="无可用优惠"></van-cell>
@@ -68,7 +66,7 @@
       <van-cell title="合计">
         <!-- 使用 right-icon 插槽来自定义右侧图标 -->
         <template #right-icon>
-          <span>¥{{Amount}}</span>
+          <span>¥{{parseFloat(Amount).toFixed(2)}}</span>
         </template>
       </van-cell>
     </div>
@@ -79,21 +77,23 @@
 
 <script>
 export default {
+  props:['oid'],
   data() {
     return {
       titleName: "",
       // 入住时间：
-      checkIn: "2020.10.18",
-      checkOut: "2020.10.23",
+      checkIn: "",
+      checkOut: "",
       // 共居住几晚
-      liveCount: "2",
+      liveCount: "",
       // 房源信息
       Housinginformation: "整套·55平·1居·宜居住2人",
       // 默认让弹出层隐藏
       show: false,
-      weState:'weState',
-      aliState:"success",
-      Amount:"100.00"
+      Amount:"",
+      pName:"",
+      pId:"",
+      pPhone:""
     };
   },
   methods: {
@@ -103,7 +103,7 @@ export default {
           title: "退订规则",
           width: "250",
           message:
-            "chekIn 14：00前取消，所有金额全部退还，\ncheckOut 14:00后取消，扣除未入住首日房费",
+            `${this.checkIn} 14：00前取消，所有金额全部退还，\n${this.checkOut} 14:00后取消，扣除未入住首日房费`,
           confirmButtonText: "我知道了",
           confirmButtonColor: "#000",
           messageAlign: "left",
@@ -112,13 +112,43 @@ export default {
           // on close
         });
     },
-
+    getOrderList(oid){
+      this.$indicator.open({
+        text:"加载中",
+        spinnerType:"double-bounce"
+      });
+      this.axios.get(`/orderDetails?oid=${this.oid}`).then(res=>{
+        var data=res.data.results;
+        console.log(res.data.results);
+        this.checkIn=this.moment.unix(res.data.results.enter_time).format('Y-MM-DD');
+        this.checkOut=this.moment.unix(res.data.results.leave_time).format('Y-MM-DD');
+        this.liveCount=this.moment.unix(res.data.results.leave_time).diff(this.checkIn,'day');
+        this.Housinginformation=`${res.data.results.old_town}·${res.data.results.r_room}居${res.data.results.r_bed}床,适居${res.data.results.r_people}人`;
+        this.Amount=res.data.results.all_price;
+        this.pName=res.data.results.o_enter_person_name;
+        this.pId=res.data.results.o_enter_person_idcard;
+        this.pPhone=res.data.results.o_enter_person_phone;
+        this.titleName=res.data.results.r_title;
+        this.$indicator.close();
+      });
+    }
   },
   watch:{
     
+  },
+  mounted(){
+    //初始化获取订单详情
+    this.getOrderList(this.oid);
   }
 };
 </script>
+
+<style>
+.van-cell__title {
+    font-size: 14px !important;
+    font-weight: 800 !important;
+}
+</style>
 
 <style scoped>
 .contentBox {
