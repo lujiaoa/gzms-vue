@@ -44,13 +44,49 @@
         </div>
         <!-- 推荐 -->
         <div class="recommend" >
-            <div v-for="(one,value) of actrcle" :key="value">
-            
+            <div>
+                <div>
+                    <img src="../assets/home-images/top.jpg" alt="">
+                </div>
+                <div>
+                    <p>￥100<span>可住2人</span> </p>
+                    <p>迪士尼大露台多擦收到收到阿萨德傲视</p>
+                </div>
             </div>
+            <div>
+                <div>
+                    <img src="../assets/home-images/123.jpg" alt="">
+                </div>
+                <div>
+                    <p>￥100<span>可住2人</span> </p>
+                    <p>迪士尼大露台多擦收到收到阿萨德傲视</p>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <img src="../assets/home-images/top.jpg" alt="">
+                </div>
+                <div>
+                    <p>￥100<span>可住2人</span> </p>
+                    <p>迪士尼大露台多擦收到收到阿萨德傲视</p>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <img src="../assets/home-images/top.jpg" alt="">
+                </div>
+                <div>
+                    <p>￥100<span>可住2人</span> </p>
+                    <p>迪士尼大露台多擦收到收到阿萨德傲视</p>
+                </div>
+            </div>
+        </div>
+        <div>
+
         </div>
         <!-- 页面内容结束 -->
 
-        <!-- 底部选项卡开始 -->
+        <!-- 底部选项卡开始 --> 
             <div>
                 <my-footer></my-footer>
             </div>
@@ -61,19 +97,39 @@
     .recommend{
         width: 90%;
         height: 30prem;
-        background-color: #EEE;
-        margin:  0 auto ;
+        background-color: #FAFEFA;
+        margin: 0 auto ;
         left: 5%;
         display: flex;
+        flex-wrap: wrap;
     }
-    .recommend>div{
-        width: 47%;
-        height: 8rem;
-        background: #09aE24;
-        border-radius: .75rem;
+    .recommend>div {
+        width: 48%;
+
+        margin-bottom: 1rem;
+        /* background: #dddddd; */
+        border-top-left-radius: .75rem;
+        border-top-right-radius: .75rem;
     }
-    .recommend>div:first{
-        margin-left:6%; 
+    .recommend>div:nth-child(odd){
+        margin-right: 4%;
+    }
+    .recommend>div img{
+          width: 100%;
+    }
+    .recommend>div>div:first-child{
+        border-radius: 0.75rem;
+        overflow: hidden;
+    }
+    .recommend p {
+        font-size: 1rem;
+        margin: 0.75rem 1.5rem 0 0.5rem;
+        line-height: 1.25rem;
+    }
+    .recommend p>span{
+        margin-left:2rem;
+        color: #666; 
+        font-size: 0.8rem;
     }
     .home{
         font-size: 1.25rem;
