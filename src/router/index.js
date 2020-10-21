@@ -10,6 +10,7 @@ import OrderDetails from '../views/OrderDetails'
 import CheckInPerson from '../views/CheckInPerson'
 import PaySuccess from '../views/PaySuccess'
 import Me from '../views/Me'
+import NotFound from '../views/NotFound'
 Vue.use(VueRouter)
 
 const routes = [
@@ -51,6 +52,10 @@ const routes = [
     path: '/search',
     component: Search
   },
+  {
+    path:'/notfound',
+    component:NotFound
+  }
   
   // {
   //   path: '/search',

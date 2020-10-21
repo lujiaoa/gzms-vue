@@ -81,19 +81,78 @@
                 </div>
             </div>
         </div>
-        <div>
-            <div></div>
+        <div class="safe">
+            <p>乐途保障</p>
+            <p>蚂蚁花呗 · 乐途商旅 · 乐途免押 · 乐途保险</p>
+            <div class="four">
+                <div>
+                    <img src="../assets/icon/mayihuabei.png" alt="">
+                    <p>蚂蚁花呗</p>
+                </div>
+                <div>
+                    <img src="../assets/icon/package.png" alt="">
+                    <p>乐途商旅</p>
+                </div>
+                <div>
+                    <img src="../assets/icon/mianyajin.png" alt="">
+                    <p>乐途免押</p>
+                </div>
+                <div>
+                    <img src="../assets/icon/baoxian.png" alt="">
+                    <p>乐途保险</p>
+                </div>
+                
+            </div>
         </div>
         <!-- 页面内容结束 -->
 
         <!-- 底部选项卡开始 --> 
-            <div>
-                <my-footer></my-footer>
-            </div>
+        <div>
+            <my-footer></my-footer>
+        </div>
         <!-- 底部选项卡结束 -->
     </div>
 </template>
 <style>
+    .four{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-bottom: 4rem;
+    }
+    .four>div{
+        width: 47%;
+        display: flex;
+        flex-direction: column;
+        border-radius: 0.75rem;
+        background: #f6f6f6;
+        margin-bottom: 0.5rem;
+        box-sizing: border-box;
+        padding: 1rem;
+    }
+       .four>div img{
+           width: 60%;
+           margin: 0 auto;
+       }
+       .four>div p{
+           font-size: 1rem;
+           margin: 1rem 0 0;
+           
+       }
+
+    .safe{
+        width: 90%;
+        margin: 0 auto;
+        font-size: 0.8rem;
+    }
+    .safe p{
+        text-align: center;
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+     .safe p:first-child{
+         font-size: 1rem;
+     }
     .recommend{
         width: 90%;
         height: 30prem;
