@@ -119,7 +119,6 @@ export default {
       });
       this.axios.get(`/orderDetails?oid=${this.oid}`).then(res=>{
         var data=res.data.results;
-        console.log(res.data.results);
         this.checkIn=this.moment.unix(res.data.results.enter_time).format('Y-MM-DD');
         this.checkOut=this.moment.unix(res.data.results.leave_time).format('Y-MM-DD');
         this.liveCount=this.moment.unix(res.data.results.leave_time).diff(this.checkIn,'day');

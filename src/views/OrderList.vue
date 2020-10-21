@@ -23,6 +23,7 @@
           v-model="svalue"
           show-action
           placeholder="请输入搜索关键词"
+          @search="onSearch"
         />
       </form>
       <!-- 搜索框结束 -->
@@ -33,7 +34,8 @@
             <div class="contentBox" v-for="(a,i) of orders" :key="i">
               <router-link :to="`/orderDetails/${a.oid}`" class="card">
                 <!-- 缩略图及简介开始 -->
-                <img src="../assets/img/1-1.png" alt="">
+                <!-- <img src="../assets/img/r1-1.jpg" alt=""> -->
+                <img :src="a.r_photo.img1"  alt="">
                 <div class="oitem">
                   <p>{{a.r_title}}</p>
                   <p>{{a.old_town}}·{{a.r_room}}居{{a.r_bed}}床,适居{{a.r_people}}人</p>
@@ -128,10 +130,16 @@ export default {
         spinnerType:"double-bounce"
       });
       this.busy=true;
-      this.axios.post('/orderList',`uid=${localStorage.getItem('uid')}&role=${localStorage.getItem('role')}&page=1`).then(res=>{
+      this.axios.post('/orderList',`uid=${localStorage.getItem('uid')}&role=${localStorage.getItem('isrole')}&page=${this.page}&title=${this.svalue}`).then(res=>{
         this.pagecount=res.data.pagecount;
         var data=res.data.results;
+        console.log(res.data.results);
         data.forEach((item,i,arr)=>{
+          let imgs = JSON.parse(arr[i].r_photo)
+          for ( let k in imgs ){
+            imgs[k]=require('../assets/img/'+imgs[k]);
+          }
+          arr[i].r_photo=imgs;
           this.orders.push(item);
         });
           this.busy=false;
@@ -141,8 +149,13 @@ export default {
     loadMore(){
       this.page++;
       if(this.page<=this.pagecount){
-          this.getOrderList(localStorage.getItem('uid'),localStorage.getItem('role'),this.page);
+          this.getOrderList(localStorage.getItem('uid'),localStorage.getItem('isrole'),this.page,this.svalue);
       }
+    },
+    onSearch(){
+      this.page=1;
+      this.orders=[];
+      this.getOrderList(localStorage.getItem('uid'),localStorage.getItem('isrole'),this.page,this.svalue);
     }
   },
   watch:{
@@ -150,7 +163,7 @@ export default {
   },
   mounted(){
     //初始化获取订单列表
-    this.getOrderList(localStorage.getItem('uid'),localStorage.getItem('role'),this.page);
+    this.getOrderList(localStorage.getItem('uid'),localStorage.getItem('isrole'),this.page,this.svalue);
   }
 }
 </script>
