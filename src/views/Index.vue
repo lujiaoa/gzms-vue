@@ -82,7 +82,7 @@
             </div>
         </div>
         <div>
-
+            <div></div>
         </div>
         <!-- 页面内容结束 -->
 
@@ -116,6 +116,7 @@
     }
     .recommend>div img{
           width: 100%;
+          height: 25vw;
     }
     .recommend>div>div:first-child{
         border-radius: 0.75rem;
@@ -140,8 +141,8 @@
         height: 13.5rem;
     }
     .mtSwipe img{
-        width: 100%
-        
+        width: 100%;
+
     }
     .nav{
         width: 90%;
@@ -160,14 +161,14 @@
         height: 100%;
         border-top-left-radius: 0.5rem;
         border-bottom-left-radius: 0.5rem;
-        border: 3px solid #199E34;
+        border: 3px solid #aa5;
         border-right-style: none;
         padding: 0.15rem 1rem;
     }
     .nav button{
         width: 30%;
-        border: 3px solid #199E34;
-        background-image: linear-gradient(to bottom right, #199E34 , #09aE24);
+        border: 3px solid #aa5;
+        background-image: linear-gradient(to bottom right, #aa5 , #ca8);
         border-top-right-radius: 0.5rem;
         border-bottom-right-radius: 0.5rem;
         font-size:1rem ;
@@ -183,8 +184,7 @@
 export default {
     data(){
         return{
-            tabbar:'index',
-            actrcle:[]
+ 
         };
     },
     watch:{

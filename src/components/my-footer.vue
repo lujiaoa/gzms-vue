@@ -31,7 +31,7 @@
         color: #707070;
     }
     .mint-tabbar>.is-selected{
-        color:#199E34 ;
+        color:#aa5 ;
     }
     .mint-tabbar>.mint-tab-item{
          font-size: ;
