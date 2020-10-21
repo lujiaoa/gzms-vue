@@ -2,12 +2,12 @@
     <div id="my_footer">
         <mt-tabbar v-model="tabbar" fixed>
             <mt-tab-item id="index" >
-                  首页 
+                  棣栭〉 
                     <img src="..\assets\footer-images\index_enabled.png" slot="icon" v-if="tabbar=='index'" >
                     <img src="..\assets\footer-images\index_disabled.png" slot="icon"  v-else alt="">  
             </mt-tab-item>
             <mt-tab-item id="me" class="MyFontStyle">
-                    我的
+                    鎴戠殑
                 <img src="..\assets\footer-images\me_enabled.png" slot="icon" v-if="tabbar=='me'" alt="">
                 <img src="..\assets\footer-images\me_disabled.png" slot="icon" v-else alt="">
             </mt-tab-item>    
@@ -32,11 +32,11 @@ export default {
    watch:{
        tabbar(value){
            if(value=='me'){
-                this.$router.push({path:'/me'})
                 this.tabbar='me'
+                this.$router.push('/me');
            }else if(value=='index'){
                this.tabbar='index'
-                this.$router.push({path:'/'})
+                this.$router.push('/');
            }
        }
 

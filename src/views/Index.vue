@@ -5,22 +5,22 @@
             <mt-swipe :auto='5000' :show-indicators = 'false'>
                 <mt-swipe-item>
                     <router-link to="paypage">
-                        <img src="../assets/home-images/top.jpg" alt="">
+                        <img src="../assets/img/1-1.png" alt="">
                     </router-link>
                 </mt-swipe-item>
                 <mt-swipe-item>
                     <router-link to="orderlist">
-                        <img src="../assets/home-images/top.jpg" alt="">
+                        <img src="../assets/img/2-2.jpg" alt="">
                     </router-link>
                 </mt-swipe-item>
                 <mt-swipe-item>
                     <router-link to="paypage">
-                        <img src="../assets/home-images/top.jpg" alt="">
+                        <img src="../assets/img/3-3.jpg" alt="">
                     </router-link>
                 </mt-swipe-item>
                 <mt-swipe-item>
                     <router-link to="paypage">
-                       <img src="../assets/home-images/top.jpg" alt="">
+                       <img src="../assets/img/4-4.jpg" alt="">
                     </router-link>
                 </mt-swipe-item>
             </mt-swipe>
@@ -38,8 +38,11 @@
         <!-- 页面内容开始 -->
         <!-- 宫格    -->
         <div class="grid">
-            <van-grid :column-num="4">
-                <van-grid-item v-for="value in 4" :key="value" icon="photo-o" text="文字" />
+            <van-grid clickable :column-num="4">
+                <van-grid-item icon="point-gift-o" text="首单立减" to="/search" />
+                <van-grid-item icon="gem-o" text="会员折扣" to="/search" />
+                <van-grid-item icon="friends-o" text="朋友Happy" to="/search" />
+                <van-grid-item icon="like-o" text="情侣约会" to="/search" />
             </van-grid>
         </div>
         <!-- 推荐 -->
@@ -114,87 +117,13 @@
     </div>
 </template>
 <style>
-    .four{
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        margin-bottom: 4rem;
-    }
-    .four>div{
-        width: 47%;
-        display: flex;
-        flex-direction: column;
-        border-radius: 0.75rem;
-        background: #f6f6f6;
-        margin-bottom: 0.5rem;
-        box-sizing: border-box;
-        padding: 1rem;
-    }
-       .four>div img{
-           width: 60%;
-           margin: 0 auto;
-       }
-       .four>div p{
-           font-size: 1rem;
-           margin: 1rem 0 0;
-           
-       }
-
-    .safe{
-        width: 90%;
-        margin: 0 auto;
-        font-size: 0.8rem;
-    }
-    .safe p{
-        text-align: center;
-        margin-bottom: 1rem;
-        font-weight: 700;
-    }
-     .safe p:first-child{
-         font-size: 1rem;
-     }
-    .recommend{
-        width: 90%;
-        height: 30prem;
-        background-color: #FAFEFA;
-        margin: 0 auto ;
-        left: 5%;
-        display: flex;
-        flex-wrap: wrap;
-    }
-    .recommend>div {
-        width: 48%;
-
-        margin-bottom: 1rem;
-        /* background: #dddddd; */
-        border-top-left-radius: .75rem;
-        border-top-right-radius: .75rem;
-    }
-    .recommend>div:nth-child(odd){
-        margin-right: 4%;
-    }
-    .recommend>div img{
-          width: 100%;
-          height: 25vw;
-    }
-    .recommend>div>div:first-child{
-        border-radius: 0.75rem;
-        overflow: hidden;
-    }
-    .recommend p {
-        font-size: 1rem;
-        margin: 0.75rem 1.5rem 0 0.5rem;
-        line-height: 1.25rem;
-    }
-    .recommend p>span{
-        margin-left:2rem;
-        color: #666; 
-        font-size: 0.8rem;
-    }
+    /* 主页样式 */
     .home{
         font-size: 1.25rem;
         position: relative;
     }
+
+    /* 轮播图样式 */
     .mtSwipe{
         width: 100%;
         height: 13.5rem;
@@ -203,6 +132,8 @@
         width: 100%;
 
     }
+
+    /* 搜素导航栏样式 */
     .nav{
         width: 90%;
         height: 3rem;
@@ -232,27 +163,107 @@
         border-bottom-right-radius: 0.5rem;
         font-size:1rem ;
     }
-    /* .nav button:click{
-        background-image: linear-gradient(to left top, #aa6 , #cc0);
-    } */
     .grid{
         margin: 1.5rem;
     }
+
+    /* 乐途首页内容样式 */
+    .recommend{
+        width: 90%;
+        height: 30prem;
+        background-color: #FAFEFA;
+        margin: 0 auto ;
+        left: 5%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .recommend>div {
+        width: 48%;
+        margin-bottom: 1rem;
+        /* background: #dddddd; */
+        border-top-left-radius: .75rem;
+        border-top-right-radius: .75rem;
+    }
+    .recommend>div:nth-child(odd){
+        margin-right: 4%;
+    }
+    .recommend>div img{
+          width: 100%;
+          height: 25vw;
+    }
+    .recommend>div>div:first-child{
+        border-radius: 0.75rem;
+        overflow: hidden;
+    }
+    .recommend p {
+        font-size: 1rem;
+        margin: 0.75rem 1.5rem 0 0.5rem;
+        line-height: 1.25rem;
+    }
+    .recommend p>span{
+        margin-left:2rem;
+        color: #666; 
+        font-size: 0.8rem;
+    }
+
+    /* 乐途保障标题样式 */
+    .safe{
+        width: 90%;
+        margin: 0 auto;
+        font-size: 0.8rem;
+    }
+    .safe p{
+        text-align: center;
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+     .safe p:first-child{
+         font-size: 1rem;
+     }
+
+    /* 乐途保障图片样式 */
+    .four{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-bottom: 4rem;
+    }
+    .four>div{
+        width: 47%;
+        display: flex;
+        flex-direction: column;
+        border-radius: 0.75rem;
+        background: #f6f6f6;
+        margin-bottom: 0.5rem;
+        box-sizing: border-box;
+        padding: 1rem;
+    }
+       .four>div img{
+           width: 60%;
+           margin: 0 auto;
+       }
+       .four>div p{
+           font-size: 1rem;
+           margin: 1rem 0 0;
+           
+       }
 </style>
 <script>
 export default {
     data(){
         return{
- 
-        };
+            
+            };
     },
     watch:{
-    //监听底部选项卡,可以带有两个参数,参数1代表新值,参数2代表旧值
-   
+        //监听底部选项卡,可以带有两个参数,参数1代表新值,参数2代表旧值
+    },
     methods: {
-
+        // button(){
+        //     this.$router.push('/search');
+        // }
     }
-}
+
 }
 </script>
 <script>
