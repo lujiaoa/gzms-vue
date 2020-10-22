@@ -12,7 +12,7 @@ export default new Vuex.Store({
     // 用户名登录真实姓名
     RealName:"华山论剑",
     // 用户的省份证号，经过修改的xxxx
-    userID:"131320xxxxxx000" 
+    userID:"13132014545455000" 
   },
   mutations: {
   },

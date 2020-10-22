@@ -5,7 +5,7 @@
             <div class="notfound-text">找不到页面~~</div>
             <router-link class="notfound-btn" to='/'>返回主页</router-link>
         </div>
-                <div @click="add()">6 6</div>
+                <div @click="add()"></div>
     </div>
 </template>
 <style scoped>

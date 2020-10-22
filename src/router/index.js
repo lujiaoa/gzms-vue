@@ -53,7 +53,7 @@ const routes = [
     component: Search
   },
   {
-    path:'/notfound',
+    path:'/*',
     component:NotFound
   }
   

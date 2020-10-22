@@ -144,8 +144,8 @@ export default {
     return {
       titleName: "",
       // 入住时间：
-      checkIn:"",
-      checkOut:"",
+      checkIn:this.$store.state.checkIn,
+      checkOut:this.$store.state.checkOut,
       // 房源信息
       Housinginformation: "整套·55平·1居·宜居住2人",
       // 默认让弹出层隐藏,这个是支付弹出层
@@ -209,7 +209,43 @@ export default {
     // 确定支付
     onSubmit(){
       if(this.isSubmit){
-        console.log('ok') 
+        // console.log('ok') 
+        // 将开关关闭
+        this.isSubmit = false;
+        // 获取当前时间
+        let current_time =  Math.floor(  +this.moment( new Date() )/1000 ) ;
+        let phone = 17699903015;
+        // 向数据库添加用户订单
+        let save = {
+          r_uid:1,
+          o_rod:2,
+          status:2,
+          order_time:current_time,
+          enter_time:this.checkIn,
+          leave_time:this.checkOut,
+          all_price:this.Amount,
+          o_enter_person_name:this.RealName,
+          o_enter_person_phone:phone,
+          o_enter_person_idcard:this.userID
+        }
+        // console.log( save )
+        let saveorder =  this.qs.stringify(save) ;
+        this.axios.post('/saveorder',saveorder).then(
+          res=>{
+            // 用来接收服务器传来的数据
+            let data = res.data;
+            if(data.code == 1){
+              // 将开关打开，
+              this.isSubmit= true;
+              // 支付成功后跳转到支付成功页面
+              // this.$router.push('/paysuccess')
+              window.location.replace('#/paysuccess')
+              // console.log(data)
+            }else{
+              Toast.fail('支付失败，请再次提交');
+            }
+          }
+        )
       }else{
 
       }
