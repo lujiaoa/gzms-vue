@@ -29,6 +29,12 @@ import myFooter from './components/my-footer.vue';
 Vue.component('my-footer',myFooter);
 Vue.config.productionTip = false
 
+// 解决首页和我的界面切换时报错  池晓亮
+// import VueRouter from 'vue-router'
+// const originalPush = VueRouter.prototype.push
+//    VueRouter.prototype.push = function push(location) {
+//    return originalPush.call(this, location).catch(err => err)
+// }
 new Vue({
   router,
   store,

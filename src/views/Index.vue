@@ -31,7 +31,7 @@
         <div class="nav">
             <!-- 导航 -->
             <input type="text" placeholder="省/市/古镇">
-            <button id="search_btn" ><img src="../assets/icon/search.png" alt="" >搜索</button>
+            <button id="search_btn" @click="()=>{this.$router.push('/search')}"><img src="../assets/icon/search.png" alt="" >搜索</button>
         </div>
         <!-- 顶部搜索结束 -->
 
@@ -111,7 +111,20 @@
 
         <!-- 底部选项卡开始 --> 
         <div>
-            <my-footer></my-footer>
+            <div id="my_footer">
+                <mt-tabbar v-model="tabbar" fixed>
+                    <mt-tab-item id="index" >
+                            首页 
+                            <img src="..\assets\footer-images\index_enabled.png" slot="icon" v-if="tabbar=='index'" >
+                            <img src="..\assets\footer-images\index_disabled.png" slot="icon"  v-else alt="">  
+                    </mt-tab-item>
+                    <mt-tab-item id="me" class="MyFontStyle">
+                            我的
+                        <img src="..\assets\footer-images\me_enabled.png" slot="icon" v-if="tabbar=='me'" alt="">
+                        <img src="..\assets\footer-images\me_disabled.png" slot="icon" v-else alt="">
+                    </mt-tab-item>    
+                </mt-tabbar>
+            </div>
         </div>
         <!-- 底部选项卡结束 -->
     </div>
@@ -252,16 +265,29 @@
         font-size: 1rem;
         margin: 1rem 0 0;   
     }
+    .MyFontStyle{
+        color: #707070;
+    }
+    .mint-tabbar>.is-selected{
+        color:#aa5 ;
+    }
 </style>
 <script>
 export default {
     data(){
         return{
-            
+            tabbar:"index"
             };
     },
     watch:{
         //监听底部选项卡,可以带有两个参数,参数1代表新值,参数2代表旧值
+        tabbar(value){
+           if(value=='me'){
+                this.$router.push('/me').catch(e=>{});
+           }else if(value=='index'){
+                this.$router.push('/').catch(e=>{});
+           }
+       }
     },
     methods: {
         // button(){

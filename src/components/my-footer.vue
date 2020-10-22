@@ -31,12 +31,13 @@ export default {
     },
    watch:{
        tabbar(value){
+        //    console.log("123"+value);
            if(value=='me'){
-                this.tabbar='me'
-                this.$router.push('/me');
+               this.$router.push('/me').catch(e=>{});
+                console.log(this.tabbar);
            }else if(value=='index'){
-               this.tabbar='index'
-                this.$router.push('/');
+               this.$router.push('/').catch(e=>{});
+               console.log( this.tabbar);
            }
        }
 

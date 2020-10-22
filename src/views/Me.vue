@@ -30,7 +30,20 @@
     <mt-cell is-link title="联系客服">
         <img slot="icon" src="..\assets\footer-images\phone.png" alt="">
     </mt-cell>
-    <my-footer></my-footer>
+    <div id="my_footer">
+      <mt-tabbar v-model="tabbar" fixed>
+        <mt-tab-item id="index">
+            首页 
+          <img src="..\assets\footer-images\index_enabled.png" slot="icon" v-if="tabbar=='index'" >
+          <img src="..\assets\footer-images\index_disabled.png" slot="icon"  v-else alt="">  
+        </mt-tab-item>
+        <mt-tab-item id="me" class="MyFontStyle">
+            我的
+          <img src="..\assets\footer-images\me_enabled.png" slot="icon" v-if="tabbar=='me'" alt="">
+          <img src="..\assets\footer-images\me_disabled.png" slot="icon" v-else alt="">
+        </mt-tab-item>    
+      </mt-tabbar>
+    </div>
   </div>
 </template>
 <style scoped>
@@ -78,6 +91,15 @@
     margin-top: 7px;
     font-size:13px;
 }
+header{
+  background: #aa5
+}
+.MyFontStyle{
+   color: #707070;
+}
+/* .mint-tabbar>.is-selected{
+  color:#aa5 ;
+} */
 </style>
 <script>
 export default {
@@ -86,7 +108,17 @@ export default {
       isLogin: "1",
       username: "风的颜色",
       isMember: "0",
+      tabbar:"me"
     };
   },
+  watch:{
+    tabbar(value){
+      if(value=='me'){
+        this.$router.push('/me').catch(e=>{});
+      }else if(value=='index'){
+        this.$router.push('/').catch(e=>{});
+      }
+    }
+  }
 };
 </script>
