@@ -5,22 +5,22 @@
             <mt-swipe :auto='5000' :show-indicators = 'false'>
                 <mt-swipe-item>
                     <router-link to="paypage">
-                        <img src="../assets/img/1-1.png" alt="">
+                        <img src="../assets/img/2-3.jpg" alt="">
                     </router-link>
                 </mt-swipe-item>
                 <mt-swipe-item>
                     <router-link to="orderlist">
-                        <img src="../assets/img/2-2.jpg" alt="">
+                        <img src="../assets/img/r1-2.jpg" alt="">
                     </router-link>
                 </mt-swipe-item>
                 <mt-swipe-item>
                     <router-link to="paypage">
-                        <img src="../assets/img/3-3.jpg" alt="">
-                    </router-link>
+                        <img src="../assets/img/4-1.jpg" alt="">
+                    </router-link>-
                 </mt-swipe-item>
                 <mt-swipe-item>
                     <router-link to="paypage">
-                       <img src="../assets/img/4-4.jpg" alt="">
+                       <img src="../assets/img/4-5.jpg" alt="">
                     </router-link>
                 </mt-swipe-item>
             </mt-swipe>
@@ -49,7 +49,16 @@
         <div class="recommend" >
             <div>
                 <div>
-                    <img src="../assets/home-images/top.jpg" alt="">
+                    <img src="../assets/img/2-3.jpg" alt="">
+                </div>
+                <div>
+                    <p>￥100<span>可住2人</span> </p>
+                    <p>露天四合院</p>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <img src="../assets/img/r1-2.jpg" alt="">
                 </div>
                 <div>
                     <p>￥100<span>可住2人</span> </p>
@@ -58,7 +67,7 @@
             </div>
             <div>
                 <div>
-                    <img src="../assets/home-images/123.jpg" alt="">
+                    <img src="../assets/img/4-1.jpg" alt="">
                 </div>
                 <div>
                     <p>￥100<span>可住2人</span> </p>
@@ -67,16 +76,7 @@
             </div>
             <div>
                 <div>
-                    <img src="../assets/home-images/top.jpg" alt="">
-                </div>
-                <div>
-                    <p>￥100<span>可住2人</span> </p>
-                    <p>迪士尼大露台多擦收到收到阿萨德傲视</p>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <img src="../assets/home-images/top.jpg" alt="">
+                    <img src="../assets/img/4-5.jpg" alt="">
                 </div>
                 <div>
                     <p>￥100<span>可住2人</span> </p>
@@ -179,7 +179,7 @@
     }
     .recommend>div {
         width: 48%;
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
         /* background: #dddddd; */
         border-top-left-radius: .75rem;
         border-top-right-radius: .75rem;
@@ -189,7 +189,11 @@
     }
     .recommend>div img{
           width: 100%;
-          height: 25vw;
+          height: 28vw;
+    }
+    .recommend div p:last-child{
+        font-size: 0.8rem;
+        color: #666;
     }
     .recommend>div>div:first-child{
         border-radius: 0.75rem;
@@ -197,8 +201,10 @@
     }
     .recommend p {
         font-size: 1rem;
-        margin: 0.75rem 1.5rem 0 0.5rem;
+        margin: 0.5rem 1rem 0 0.5rem;
         line-height: 1.25rem;
+        max-height: 2.5rem;
+        overflow: hidden;
     }
     .recommend p>span{
         margin-left:2rem;
@@ -234,19 +240,18 @@
         flex-direction: column;
         border-radius: 0.75rem;
         background: #f6f6f6;
-        margin-bottom: 0.5rem;
+        margin-bottom: 2vw;
         box-sizing: border-box;
         padding: 1rem;
     }
-       .four>div img{
-           width: 60%;
-           margin: 0 auto;
-       }
-       .four>div p{
-           font-size: 1rem;
-           margin: 1rem 0 0;
-           
-       }
+    .four>div img{
+        width: 60%;
+        margin: 0 auto;
+    }
+    .four>div p{
+        font-size: 1rem;
+        margin: 1rem 0 0;   
+    }
 </style>
 <script>
 export default {
@@ -266,7 +271,3 @@ export default {
 
 }
 </script>
-<script>
-
-</script>
-

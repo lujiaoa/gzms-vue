@@ -2,12 +2,12 @@
     <div id="my_footer">
         <mt-tabbar v-model="tabbar" fixed>
             <mt-tab-item id="index" >
-                  棣栭〉 
+                    首页 
                     <img src="..\assets\footer-images\index_enabled.png" slot="icon" v-if="tabbar=='index'" >
                     <img src="..\assets\footer-images\index_disabled.png" slot="icon"  v-else alt="">  
             </mt-tab-item>
             <mt-tab-item id="me" class="MyFontStyle">
-                    鎴戠殑
+                    我的
                 <img src="..\assets\footer-images\me_enabled.png" slot="icon" v-if="tabbar=='me'" alt="">
                 <img src="..\assets\footer-images\me_disabled.png" slot="icon" v-else alt="">
             </mt-tab-item>    
