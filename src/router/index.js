@@ -17,7 +17,6 @@ import NotFound from '../views/NotFound'
 Vue.use(VueRouter)
 
 const routes = [
-<<<<<<< HEAD
 
     {
         path: '/',
@@ -75,58 +74,6 @@ const routes = [
     //   // which is lazy-loaded when the route is visited.
     //   component: () => import(/* webpackChunkName: "search" */ '../views/Search.vue')
     // }
-=======
-  
-  {
-    path: '/',
-    component:Home
-  },
-  {
-    path: '/paysuccess',
-    component: PaySuccess
-  },
-  {
-    path: '/orderDetails/:oid',
-    component: OrderDetails,
-    props:true
-  },
-  {
-    path: '/orderList',
-    component: OrderList
-  },
-  {
-    path: '/me',
-    component: Me
-  },
-  {
-    path: '/checkinperson',
-    component: CheckInPerson
-  },
-  {
-    path: `/paypage/:id`,
-    component: Paypage
-  },
-  {
-    path: '/details',
-    component: Details
-  },
-  {
-    path: '/search',
-    component: Search
-  },
-  {
-    path:'/*',
-    component:NotFound
-  }
-  
-  // {
-  //   path: '/search',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "search" */ '../views/Search.vue')
-  // }
->>>>>>> f41c783f6520dac7f72bdcb8c0487c6d874a942c
 ]
 
 const router = new VueRouter({
