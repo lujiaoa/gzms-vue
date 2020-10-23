@@ -43,6 +43,9 @@ export default new Vuex.Store({
             state.uid = '';
             state.isrole = '';
             localStorage.removeItem('isLogined');
+            localStorage.removeItem('isrole');
+            localStorage.removeItem('uid');
+            localStorage.removeItem('uname');
         }
         // 王睿芳
     },

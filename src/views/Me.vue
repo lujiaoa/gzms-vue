@@ -2,6 +2,7 @@
   <div>
       <mt-header title="个人主页">
           <mt-button slot="left" icon='back'></mt-button>
+          <mt-button slot="right" v-if='isLogin=="1"' @click="out">退出</mt-button>
       </mt-header>
       <img class="head_icon" src="..\assets\footer-images\headicon.png" alt="">
       <div class="message-out" v-if="isLogin=='0'">
@@ -11,7 +12,7 @@
       </div>
       <div class="message-in" v-else>
           <div class="username">{{this.username}}</div>
-          <div class="ismember">{{this.isMember=='0'?'普通会员':'超级会员'}}</div>
+          <div class="isrole">{{this.isrole=='0'?'普通会员':'房东'}}</div>
       </div>
     <mt-cell is-link title="设置">
       <img
@@ -87,27 +88,28 @@
     font-size:18px;
     font-weight: bold;
 }
-.ismember{
+.isrole{
     margin-top: 7px;
     font-size:13px;
 }
-header{
+/* header{
   background: #aa5
-}
-.MyFontStyle{
+} */
+/* .MyFontStyle{
    color: #707070;
-}
+} */
 /* .mint-tabbar>.is-selected{
   color:#aa5 ;
 } */
 </style>
 <script>
+import {mapMutations} from 'vuex';
 export default {
   data() {
     return {
-      isLogin: "0",
-      username: "风的颜色",
-      isMember: "0",
+      isLogin: localStorage.getItem('isLogined') ? localStorage.getItem('isLogined'):"0",
+      username: localStorage.getItem('uname') ? localStorage.getItem('uname'):"",
+      isrole: localStorage.getItem('isrole') ? localStorage.getItem('isrole'):"0",
       tabbar:"me"
     };
   },
@@ -115,9 +117,21 @@ export default {
     tabbar(value){
       if(value=='me'){
         this.$router.push('/me').catch(e=>{});
+        console.log(this.isLogined);
       }else if(value=='index'){
         this.$router.push('/').catch(e=>{});
       }
+    }
+  },
+  methods:{
+    ...mapMutations(['logout']),
+    out(){
+      this.$messagebox.confirm('是否确定退出?').then(action => {
+        this.logout();
+        this.isLogin="0";
+        this.username="";
+        this.isrole="0";
+      });
     }
   }
 };

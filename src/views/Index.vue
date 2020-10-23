@@ -107,7 +107,7 @@
 <style>
     /* 主页样式 */
     .home{
-        font-size: 1.25rem;
+        font-size: 1rem;
         position: relative;
     }
 
@@ -139,14 +139,15 @@
         height: 100%;
         border-top-left-radius: 0.5rem;
         border-bottom-left-radius: 0.5rem;
-        border: 3px solid #aa5;
+        border: 2px solid #ccc;
         border-right-style: none;
         padding: 0.15rem 1rem;
     }
     .nav button{
         width: 30%;
-        border: 3px solid #aa5;
-        background-image: linear-gradient(to bottom right, #aa5 , #ca8);
+        border: 2px solid #ccc;
+        /* background-image: linear-gradient(to bottom right, #aa5 , #ca8); */
+        /* background: #26a2ff; */
         border-top-right-radius: 0.5rem;
         border-bottom-right-radius: 0.5rem;
         font-size:1rem ;
