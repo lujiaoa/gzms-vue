@@ -193,6 +193,14 @@ export default {
       this.checkOut = ` ${this.formatDate(end)}`
     },
     formatter(day){
+      const month = day.date.getMonth() + 1;
+      const date = day.date.getDate();
+
+      if (month === 10) {
+        if (date === 25) {
+          day.type = 'disabled';
+        }
+      }
       if( day.type =="start"){
         day.bottomInfo="入住";
       }else if(day.type=="end"){
@@ -291,14 +299,37 @@ export default {
       userID:'userID'
     })
   }
-
+  ,
+  // 挂载
+  mounted(){
+    let id = this.$route.params.id
+    // 获取当前时间毫秒数
+    let time  = Math.floor( +this.moment(new Date()) / 1000 )
+    // console.log(time)
+    // console.log(id)
+    //接受地址栏传过来的信息，用来去请求房源详情表
+    this.axios.get("/getGzhome?id="+id +"&time="+ time ).then(res=>{
+      // console.log(res.data )
+      // let data = res.data.
+      let [enter_time,leave_time] = res.data.result;
+      // console.log( enter_time)
+      let results = res.data.results[0]
+      this.Housinginformation = `整套·${results.r_room}室·${results.r_hall}厅·${results.r_toilet}卫·宜居住${results.r_people}人`;
+      // 获取房子单价
+      this.unitPrice = results.r_price
+      // 修改房子标题
+      this.titleName = results.r_title;
+      // console.log( res.data.results[0].r_title)
+      
+    })
+  }
 };
 </script>
 
 <style scoped>
 /* 设置表头背景颜色 */
 .bgColor{
-  background-color: rgb(44,200,113);
+  background-color: #aa5;
 }
 .contentBox {
   border: 1px solid #fff;
@@ -310,7 +341,7 @@ export default {
 /* 设置背景过渡效果 */
 .main {
   padding-top: 10px;
-  background-image: linear-gradient(to bottom, #28c76f, #fff);
+  background-image: linear-gradient(to bottom, #aa5, #fff);
   font-size: 16px;
   color: rgb(41, 40, 40);
 }

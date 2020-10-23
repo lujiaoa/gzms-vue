@@ -41,7 +41,7 @@ const routes = [
     component: CheckInPerson
   },
   {
-    path: '/paypage',
+    path: `/paypage/:id`,
     component: Paypage
   },
   {
