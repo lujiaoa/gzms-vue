@@ -2,7 +2,7 @@
   <div class="paypage">
     <!-- 页头标签开始 -->
     <div>
-      <mt-header :title="titleName">
+      <mt-header :title="titleName" fixed >
         <router-link to="/orderList" slot="left">
           <mt-button icon="back"></mt-button>
         </router-link>
@@ -160,6 +160,7 @@ export default {
 /* 设置背景过渡效果 */
 .main {
   padding-top: 10px;
+  margin-top: 40px;
   /* background-image: linear-gradient(to bottom, #28c76f, #fff); */
   font-size: 16px;
   color: rgb(41, 40, 40);

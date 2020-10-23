@@ -3,22 +3,15 @@
     <!-- 顶部导航开始 -->
     <div>
       <mt-header fixed title="我的订单">
-        <router-link to="/" slot="left">
+        <router-link to="/me" slot="left">
           <mt-button icon="back"></mt-button>
         </router-link>
         <mt-button icon="more" slot="right"></mt-button>
       </mt-header>
     </div>
     <!-- 顶部导航结束 -->
-    <!-- 面板开始 -->
-    <div  class="main" 
-      infinite-scroll-disabled="busy"
-      infinite-scroll-distance="10"
-      v-infinite-scroll="loadMore"
-      infinite-scroll-immediate-check="true"
-      >
       <!-- 搜索框开始(目前没有实际功能) -->
-      <form action="/">
+      <form action="/" class="search">
         <van-search
           v-model="svalue"
           show-action
@@ -27,6 +20,13 @@
         />
       </form>
       <!-- 搜索框结束 -->
+    <!-- 面板开始 -->
+    <div  class="main" 
+      infinite-scroll-disabled="busy"
+      infinite-scroll-distance="10"
+      v-infinite-scroll="loadMore"
+      infinite-scroll-immediate-check="true"
+      >
       <mt-tab-container>
         <mt-tab-container-item >
           <!-- 单一文档信息开始 -->
@@ -54,6 +54,12 @@
   </div>
 </template>
 <style scoped>
+.search{
+  position: fixed;
+  top:40px;
+  z-index: 10;
+  width: 100%;
+}
 /* 卡片子项样式 */
 .oitem p{
   line-height: 14px;
@@ -99,7 +105,7 @@
 }
 /* 设置列表字体颜色 */
 .main {
-  margin-top: 40px;
+  margin-top: 100px;
   font-size: 14px;
   color: rgb(41, 40, 40);
 }

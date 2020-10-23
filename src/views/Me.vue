@@ -20,7 +20,7 @@
         class="setIcon"
       />
     </mt-cell>
-    <mt-cell is-link v-show='isLogin=="1"' title="我的订单">
+    <mt-cell is-link v-show='isLogin=="1"' to="/orderList" title="我的订单">
         <img
         slot="icon"
         src="..\assets\footer-images\order.png"
