@@ -4,22 +4,22 @@
         <div class="mtSwipe">   
             <mt-swipe :auto='5000' :show-indicators = 'false'>
                 <mt-swipe-item>
-                    <router-link to="paypage">
+                    <router-link to="/search">
                         <img src="../assets/img/2-3.jpg" alt="">
                     </router-link>
                 </mt-swipe-item>
                 <mt-swipe-item>
-                    <router-link to="orderlist">
+                    <router-link to="/search">
                         <img src="../assets/img/r1-2.jpg" alt="">
                     </router-link>
                 </mt-swipe-item>
                 <mt-swipe-item>
-                    <router-link to="paypage">
+                    <router-link to="/search">
                         <img src="../assets/img/4-1.jpg" alt="">
                     </router-link>-
                 </mt-swipe-item>
                 <mt-swipe-item>
-                    <router-link to="paypage">
+                    <router-link to="/search">
                        <img src="../assets/img/4-5.jpg" alt="">
                     </router-link>
                 </mt-swipe-item>
@@ -47,40 +47,15 @@
         </div>
         <!-- 推荐 -->
         <div class="recommend" >
-            <div>
+            <div v-for="(v,i) of pro " :key="i" > 
                 <div>
-                    <img src="../assets/img/2-3.jpg" alt="">
+                    <!-- <img src="../assets/img/2-2.jpg" alt=""> -->
+                    <!-- v.photo_src -->
+                    <img :src="v.photo_src" alt="">
                 </div>
                 <div>
-                    <p>￥100<span>可住2人</span> </p>
-                    <p>露天四合院</p>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <img src="../assets/img/r1-2.jpg" alt="">
-                </div>
-                <div>
-                    <p>￥100<span>可住2人</span> </p>
-                    <p>迪士尼大露台多擦收到收到阿萨德傲视</p>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <img src="../assets/img/4-1.jpg" alt="">
-                </div>
-                <div>
-                    <p>￥100<span>可住2人</span> </p>
-                    <p>迪士尼大露台多擦收到收到阿萨德傲视</p>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <img src="../assets/img/4-5.jpg" alt="">
-                </div>
-                <div>
-                    <p>￥100<span>可住2人</span> </p>
-                    <p>迪士尼大露台多擦收到收到阿萨德傲视</p>
+                    <p>￥{{v.r_price}}<span>可住{{v.r_people}}人</span> </p>
+                    <p>{{v.r_title}}</p>
                 </div>
             </div>
         </div>
@@ -276,7 +251,8 @@
 export default {
     data(){
         return{
-            tabbar:"index"
+            tabbar:"index",
+            pro:[]
             };
     },
     watch:{
@@ -289,10 +265,21 @@ export default {
            }
        }
     },
+    mounted(){
+        this.axios.get('/index').then(res=>{
+            //  console.log(res);
+             res.data.results.forEach(element => {
+                 let imgs=JSON.parse(element.r_photo);
+                 let photo_src=require("../assets/img/"+imgs.img1);
+                 element.photo_src=photo_src;
+                 this.pro.push(element);
+             });
+            //  console.log(this.pro)
+            // let imgs=JSON.parse(JSON.parse(res.data.results);
+        });
+    },
     methods: {
-        // button(){
-        //     this.$router.push('/search');
-        // }
+        
     }
 
 }

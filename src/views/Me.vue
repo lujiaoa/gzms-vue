@@ -5,9 +5,9 @@
       </mt-header>
       <img class="head_icon" src="..\assets\footer-images\headicon.png" alt="">
       <div class="message-out" v-if="isLogin=='0'">
-          <router-link to="">登录</router-link>
+          <router-link to="/login">登录</router-link>
           <span>/</span>
-          <router-link to="">注册</router-link>
+          <router-link to="/register">注册</router-link>
       </div>
       <div class="message-in" v-else>
           <div class="username">{{this.username}}</div>
@@ -105,7 +105,7 @@ header{
 export default {
   data() {
     return {
-      isLogin: "1",
+      isLogin: "0",
       username: "风的颜色",
       isMember: "0",
       tabbar:"me"
