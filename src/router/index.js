@@ -55,11 +55,11 @@ const routes = [
         component: Paypage
     },
     {
-        path: '/details',
+        path: '/details/:id',
         component: Details
     },
     {
-        path: '/search',
+        path: '/search/:id',
         component: Search
     },
     {

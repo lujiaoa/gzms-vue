@@ -31,7 +31,7 @@
         <div class="nav">
             <!-- 导航 -->
             <input type="text" placeholder="省/市/古镇">
-            <button id="search_btn" @click="()=>{this.$router.push('/search')}"><img src="../assets/icon/search.png" alt="" >搜索</button>
+            <button id="search_btn" @click="()=>{this.$router.push('/search/1')}"><img src="../assets/icon/search.png" alt="" >搜索</button>
         </div>
         <!-- 顶部搜索结束 -->
 
