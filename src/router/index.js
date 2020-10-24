@@ -59,7 +59,7 @@ const routes = [
         component: Details
     },
     {
-        path: '/search:/id',
+        path: '/search/:id',
         component: Search
     },
     {

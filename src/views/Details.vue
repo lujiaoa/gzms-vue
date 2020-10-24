@@ -1,10 +1,12 @@
 <template>
   <div class="details">
     <!-- 顶部固定 返回 -->
-    <mt-header title="西涌（西冲） 舒适宜居宽敞双床房近沙滩" fixed>
+    <mt-header :title="info.r_title" fixed>
       <!-- 返回按钮 -->
       <span slot="left">
-        <mt-button icon="back"></mt-button>
+        <router-link :to="`/search/${info.rid}`">
+          <mt-button icon="back"></mt-button>
+        </router-link>
       </span>
       <!-- 更多按钮 待定 -->
       <!-- <div slot="right">
@@ -16,11 +18,16 @@
       <mt-swipe 
         :showIndicators="true"
         :auto="4000"
-        :speed="300">
-	    <mt-swipe-item><img src="../assets/images/search/1.jpg" alt=""></mt-swipe-item>
-	    <mt-swipe-item><img src="../assets/images/search/2.jpg" alt=""></mt-swipe-item>
-	    <mt-swipe-item><img src="../assets/images/search/3.jpg" alt=""></mt-swipe-item>
-	    <mt-swipe-item><img src="../assets/images/search/4.jpg" alt=""></mt-swipe-item>
+        :speed="600">
+	    <mt-swipe-item >
+        <img src="../assets/img/r1-1.jpg" alt="">
+      </mt-swipe-item>
+      <mt-swipe-item >
+        <img src="../assets/img/r1-2.jpg" alt="">
+      </mt-swipe-item>
+      <mt-swipe-item >
+        <img src="../assets/img/r1-3.jpg" alt="">
+      </mt-swipe-item>
     </mt-swipe>
     </div>
     
@@ -28,28 +35,36 @@
     <div class="main">
       <!-- 2 房屋名称 -->
       <div class="title">
-        <p><b>西涌（西冲） 舒适宜居宽敞双床房近沙滩</b></p>
+        <p><b>{{info.r_title}}</b></p>
       </div>
       <!-- 3 格局 -->
       <div class="pattern">
-        <img src="../assets/images/search/house.jpg" alt="">
+        <img src="../assets/images/details/house.jpg" alt="">
         <div class="left">
           <span>独立单间 18m<sup>2</sup></span>
-          <span>2室1厅1厨1卫</span>
+          <span>
+            {{info.r_room}}室
+            {{info.r_hall}}厅
+            {{info.r_toilet}}卫
+          </span>
         </div>
-        <img src="../assets/images/search/bed.jpg" alt="">
+        <img src="../assets/images/details/bed.jpg" alt="">
         <div class="right">          
-          <span>1张床·宜住2人</span>
-          <span>加客70元/人</span>
+          <span>{{info.r_bed}}张床·宜住{{info.r_people}}人</span>
+          <span>折扣：{{info.r_discount}}元/晚</span>
         </div>
       </div>
       <!-- 4 地图位置 -->
       <div class="address">
-        <span>广东省深圳市大鹏新区南澳西涌沙滩三号收费口鹤</span>
+        <span>{{info.r_address}}</span>
       </div>
       <!-- 5 时间 入住和离开 -->
       <div class="time">
-        
+        <van-cell-group>
+          <van-cell title="点此选择入住及离开时间" :value="date" @click="show = true" />
+          <van-calendar v-model="show" type="range" @confirm="onConfirm" />
+          <van-cell :value="`${this.checkIn} 14:00  至  ${this.checkOut} 12:00  共${this.liveCount}晚`" />
+        </van-cell-group>
       </div>
       <!-- 6 配套设施 -->
       <div class="facilities">
@@ -75,11 +90,25 @@
           </van-popup>
           <!-- 基础设施 -->
           <div class="old_6">
-            <span class="facilities_title">基础</span> <span>WiFi</span> <span>电梯</span> <span>停车位</span>
-            <br>
-            <span class="facilities_title">洗浴</span> <span>独立卫生间</span> <span>共用卫生间</span> <span>热水淋浴</span>
-            <br>
-            <span class="facilities_title">电器</span> <span>空调</span> <span>电视</span> <span>洗衣机</span>
+            <span class="facilities_title">基础</span> 
+            <van-checkbox-group v-model="result" direction="horizontal" disabled>
+              <van-checkbox name="wf">WiFi</van-checkbox>
+              <van-checkbox name="dt">电梯</van-checkbox>
+              <van-checkbox name="tcw">停车位</van-checkbox>
+            </van-checkbox-group>
+            
+            <span class="facilities_title">洗浴</span>
+            <van-checkbox-group v-model="result" direction="horizontal" disabled>
+              <van-checkbox name="xy">洗浴</van-checkbox>
+              <van-checkbox name="ly">淋浴</van-checkbox>
+              <van-checkbox name="dy">独立卫生间</van-checkbox>
+            </van-checkbox-group>
+            <span class="facilities_title">电器</span>
+            <van-checkbox-group v-model="result" direction="horizontal" disabled>
+              <van-checkbox name="kt">空调</van-checkbox>
+              <van-checkbox name="ds">电视</van-checkbox>
+              <van-checkbox name="xyj">洗衣机</van-checkbox>
+            </van-checkbox-group>
           </div>
       </div>
       <!-- 7 房东介绍 -->
@@ -108,7 +137,7 @@
           <div class="old_7">
             <img src="" alt="房东头像"> <span class="homeower_name">房东如意会所</span><br>
             <hr>
-            <span class="homeower_title">房源介绍 </span>
+            <span class="homeower_title">房源介绍</span>
             <span class="homeower_content">
               具体内容：区周边配套成熟，商业非常繁荣，有SM广场、伊藤洋华堂、龙湖三千集店大型综合商场，，红旗超市、舞东风、WOWO和其他小超市十数家，小区商业街有工商银行、建设银行、浙商银行、中国银行等，包括第六人民医院（三甲）、第六省医院及诊所在内医疗机构七八家，出
             </span>
@@ -185,14 +214,16 @@
           </div>
       </div>
     </div>
-    <!-- 10 底部固定 价格及提交订单 -->
-    <p v-for="(v,k) of 50" :key="k">
-      {{v}}
-    </p>
+    <!-- 10 底部固定  价格及提交订单 -->
+    <div class="footer">
+      <router-link to="/paypage">
+        <van-submit-bar :price="liveCount ? info.r_price * liveCount:info.r_price"  button-text="提交订单"  @submit="onSubmit" />
+      </router-link>
+    </div>
+    
   </div>
 </template>
 <style>
-  
   
 
   .details{
@@ -203,6 +234,7 @@
   /* 1 轮播图 */
   .details .banner{
     height: 345px;
+    width: 100%;
   }
   /* 主体部分样式 */
   .details .main{
@@ -219,6 +251,7 @@
     border-radius: 10px;
   }
   /* 3 格局 */
+  
   .details .pattern{
     background-color: #eee;
     padding: 15px 20px;
@@ -228,12 +261,15 @@
     display:inline-block;
   }
   .details .pattern img{
-    margin: 0 5px 5px  40px;
+    margin: 0 5px 10px  40px;
   }
   .details .pattern .left span,.details .pattern .right span{
     display: block;
-    font-size: 10px;
+    font-size: 14px;
     text-align: left;
+  }
+  .details sup{
+    font-size:2px;
   }
   /* 4 地图位置 */
   .details .address{
@@ -241,11 +277,17 @@
     font-size: 15px;
     text-align: center;
     line-height: 100px;
-    background:url(../assets/images/search/1.png) center no-repeat;
+    background:url(../assets/images/details/1.png) center no-repeat;
     margin-top: 20px;
   }
   /* 5 时间 入住和离开 */
+  .details .time{
+    background-color: #fff;
+    margin: 15px 20px;
+    border-radius: 10px; 
+    border: 2px solid #ccc;
 
+  }
   /* 下面四项顶部按钮  */
   .van-cell__title{
     font-size: 20px;
@@ -261,7 +303,7 @@
   .details .facilities,.details .homeowner,
   .details .comment,.details .notice{
     margin-top: 15px;
-    background-color: #eee;
+    background-color: #fff;
     padding: 15px 20px;
     border-radius: 10px;
   }
@@ -299,6 +341,8 @@
   }
   .details .homeower_content{
     font-size: 16px;
+    line-height: 18px;
+
   }
   /* 8 房客点评 */
   .details .old_8{
@@ -315,6 +359,8 @@
   .details .comment_content{
     margin-left: 4px;
     font-size: 14px;
+    line-height: 16px;
+
   }
   /* 9 预定须知 */
   .details .old_9{
@@ -329,7 +375,9 @@
   }
   .details .notice_content{
     margin-left: 4px;
-    font-size: 12px;
+    font-size: 14px;
+    line-height: 20px;
+
   }
 
 </style>
@@ -339,6 +387,7 @@
 export default {
   data(){
     return{
+      
       //存储房源详细信息
       info:{},
       // 默认让设施 弹出层隐藏
@@ -349,9 +398,38 @@ export default {
       comment:false,
       // 默认让房东 弹出层隐藏
       notice:false,
+      //基础设施
+      result: ['dt','tcw','0','dy','ly','kt','ds','xyj','wf'],
+      //时间选择显示
+      date: '',
+      show: false,
+      // 入住离开时间：
+      checkIn: "",
+      checkOut: "",
+      // 共居住几晚
+      liveCount: "",
+      //房子id
+      id:"",
+      photo:{}
      }
     },
     methods:{
+      //控制入住离开时间选择
+      formatDate(date) {
+      return `${date.getMonth() + 1}/${date.getDate()}`;
+      },
+
+      onConfirm(date) {
+        const [start, end] = date;
+        this.show = false;
+        this.date = `${this.formatDate(start)} - ${this.formatDate(end)}`;
+        //数据内容
+        this.checkIn=this.formatDate(start)
+        this.checkOut=this.formatDate(end)
+        this.liveCount=( (Date.parse(this.formatDate(end))  -  Date.parse(this.formatDate(start)))/1000/60/60/24 )
+        
+      },
+
       // 控制弹出层弹出
       facilitiesPopup() {
         this.facilities = true;
@@ -365,6 +443,24 @@ export default {
       noticePopup() {
         this.homeowner = true;
       },
+      //提交订单事件 
+      onSubmit(){
+        //条件暂定
+        if(this.checkIn && this.checkOut) {
+          
+          //房子标题 房子价格 房子室厅卫 时间 
+          let checkIn=Date.parse(this.checkIn);
+          let checkOut=Date.parse(this.checkOut);
+          let id=this.id;
+          //this.$store.dispatch('push',obj)
+          this.$store.commit('checkIn',checkIn)
+          this.$store.commit('checkOut',checkOut)
+          this.$store.commit('id',id)
+
+          }else{
+          //console.log('111')
+          }
+      }
     },
     mounted(){
         //获取地址栏的id  再向web服务器请求数据
@@ -372,11 +468,12 @@ export default {
         let id = this.$route.params.id;
         //console.log(id)
         //2
-        this.axios.get('/details?id=' + id).then(res=>{
+        this.axios.get('/details?id=' +id).then(res=>{
             let data=res.data.result;
-            //data.avatar=require('../assets/avatar/'+data.avatar);
+            console.log(data)
+            //data.r_photo=require('../assets/img/'+data.r_photo.img1)
             this.info=data;
-            console.log(this.info)
+            
         })
     }
 }
