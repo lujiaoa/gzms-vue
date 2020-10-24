@@ -51,15 +51,15 @@ const routes = [
         component: CheckInPerson
     },
     {
-        path: '/paypage',
+        path: '/paypage/:id',
         component: Paypage
     },
     {
-        path: '/details',
+        path: '/details/:id',
         component: Details
     },
     {
-        path: '/search',
+        path: '/search:/id',
         component: Search
     },
     {
