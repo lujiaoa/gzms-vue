@@ -216,8 +216,8 @@
     </div>
     <!-- 10 底部固定  价格及提交订单 -->
     <div class="footer">
-      <router-link to="/paypage">
-        <van-submit-bar :price="liveCount ? info.r_price * liveCount:info.r_price"  button-text="提交订单"  @submit="onSubmit" />
+      <router-link :to="`/paypage/${info.rid}`">
+        <van-submit-bar :price="liveCount ?( info.r_price * liveCount)*100:(info.r_price)*100"  button-text="提交订单"  @submit="onSubmit" />
       </router-link>
     </div>
     

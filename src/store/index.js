@@ -7,11 +7,14 @@ import router from '../router';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    state: {
-        // 入住时间时间戳
-        checkIn: 1603005487,
+        state: {
+            // 入住时间时间戳
+        checkIn:1603005487,
         // 离店时间时间戳
-        checkOut: 1603091887,
+        checkOut:1603091887,
+        
+        liveCount:'',
+        id:'',
         // 用户名登录真实姓名
         RealName: "华山论剑",
         // 用户的省份证号，经过修改的xxxx
@@ -46,8 +49,17 @@ export default new Vuex.Store({
             localStorage.removeItem('isrole');
             localStorage.removeItem('uid');
             localStorage.removeItem('uname');
-        }
+        },
         // 王睿芳
+        checkIn(state,payload){
+            state.checkIn=payload/1000
+          },
+          checkOut(state,payload){
+            state.checkOut=payload/1000
+          },
+          id(state,payload){
+            state.id=payload
+          }
     },
     actions: {
         // 王睿芳

@@ -35,7 +35,7 @@
         id="search_btn"
         @click="
           () => {
-            this.$router.push('/search');
+            this.$router.push('/search/1');
           }
         "
       >
