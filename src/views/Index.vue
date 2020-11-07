@@ -316,6 +316,18 @@ export default {
       // let imgs=JSON.parse(JSON.parse(res.data.results);
     });
   },
+  beforeRouteLeave(to, form, next) {
+    console.log("路由离开首页。。。");
+    if (to.name == "details") {
+      to.meta.keepAlive = true;
+    }
+    next();
+  },
+  beforeRouteEnter(to, form, next) {
+    console.log("路由进入首页。。。");
+
+    next();
+  },
   methods: {},
 };
 </script>

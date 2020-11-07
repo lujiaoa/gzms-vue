@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Index.vue'
 import Search from '../views/Search.vue'
 import Details from '../views/Details.vue'
-import Paypage from '../views/Paypage'
+// import Paypage from '../views/Paypage'
 
 import OrderList from '../views/OrderList'
 import OrderDetails from '../views/OrderDetails'
@@ -52,15 +52,24 @@ const routes = [
     },
     {
         path: '/paypage/:id',
-        component: Paypage
+        component: () => import(/* webpackChunkName: "paypage" */ '../views/Paypage.vue'),
+        meta: {
+            keepAlive: false
+        }
     },
     {
         path: '/details/:id',
-        component: Details
+        component: Details,
+        meta: {
+            keepAlive: true
+        }
     },
     {
         path: '/search/:id',
-        component: Search
+        component: Search,
+        meta: {
+            keepAlive: false
+        }
     },
     {
         path: '/*',

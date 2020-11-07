@@ -32,7 +32,7 @@
             :formatter="formatter"
           >
             <template #title>
-              <p>我就是我</p>
+              <p>选择日期</p>
             </template>
           </van-calendar>
           <van-cell :title="Housinginformation" class="van-ellipsis" />
@@ -62,6 +62,7 @@
               <span>{{ userID }}</span>
             </div>
           </div>
+          <!-- 当检测到用户未登陆的时候让其登陆 -->
           <div class="checkinPerson" v-else>
             <van-button
               type="primary"
@@ -219,12 +220,13 @@ export default {
     formatter(day) {
       const month = day.date.getMonth() + 1;
       const date = day.date.getDate();
-
-      if (month === 10) {
-        if (date === 25) {
-          day.type = "disabled";
-        }
-      }
+      // 功能还没完善，
+      // 不能查询已有订单选中的时间，防止用户预约同一天
+      // if (month === 10) {
+      //   if (date === 25) {
+      //     day.type = "disabled";
+      //   }
+      // }
       if (day.type == "start") {
         day.bottomInfo = "入住";
       } else if (day.type == "end") {
@@ -240,43 +242,66 @@ export default {
     },
     // 确定支付
     onSubmit() {
-      if (this.isSubmit) {
-        // console.log('ok')
-        // 将开关关闭
-        this.isSubmit = false;
-        // 获取当前时间
-        let current_time = Math.floor(+this.moment(new Date()) / 1000);
-        let phone = 17699903015;
-        // 向数据库添加用户订单
-        let save = {
-          r_uid: 1,
-          o_rod: this.$route.params.id,
-          status: this.status,
-          order_time: current_time,
-          enter_time: this.checkIn,
-          leave_time: this.checkOut,
-          all_price: this.Amount,
-          o_enter_person_name: this.RealName,
-          o_enter_person_phone: phone,
-          o_enter_person_idcard: this.userID,
-        };
-        // console.log( save )
-        let saveorder = this.qs.stringify(save);
-        this.axios.post("/saveorder", saveorder).then((res) => {
-          // 用来接收服务器传来的数据
-          let data = res.data;
-          if (data.code == 1) {
-            // 将开关打开，
-            this.isSubmit = true;
-            // 支付成功后跳转到支付成功页面
-            // this.$router.push('/paysuccess')
-            window.location.replace("#/paysuccess");
-            // console.log(data)
-          } else {
-            Toast.fail("支付失败，请再次提交");
-          }
-        });
+      // 当用户未登陆的时候，是不发送请求的，而是弹出提示，让用户跳转到登陆页面，登陆以后才能提交
+      let isLogined = localStorage.getItem("isLogined");
+      // 如果用户登陆了，能获取到1，结果为真发送请求。否则弹出提示
+      if (isLogined) {
+        ///////////////////////
+        if (this.isSubmit) {
+          // console.log('ok')
+          // 将开关关闭
+          this.isSubmit = false;
+          // 获取当前时间
+          let current_time = Math.floor(+this.moment(new Date()) / 1000);
+          let phone = 17699903015;
+
+          // 由于数据表有问题
+          // 向数据库添加用户订单
+          let save = {
+            r_uid: 1,
+            o_rod: this.$route.params.id,
+            status: this.status,
+            order_time: current_time,
+            enter_time: this.checkIn,
+            leave_time: this.checkOut,
+            all_price: this.Amount,
+            // 由于数据错误，暂时先用假名，原因是数据库中只能放5个字段
+            o_enter_person_name: "字段不足5",
+            o_enter_person_phone: phone,
+            o_enter_person_idcard: this.userID,
+          };
+          // console.log( save )
+          let saveorder = this.qs.stringify(save);
+          this.axios.post("/saveorder", saveorder).then((res) => {
+            // 用来接收服务器传来的数据
+            let data = res.data;
+            if (data.code == 1) {
+              // 将开关打开，
+              this.isSubmit = true;
+              // 支付成功后跳转到支付成功页面
+              // this.$router.push('/paysuccess')
+              window.location.replace("#/paysuccess");
+              // console.log(data)
+            } else {
+              Toast.fail("支付失败，请再次提交");
+            }
+          });
+        }
+        ///////////////////////
       } else {
+        // 未登陆弹出提示框，跳转到首页
+        this.$dialog
+          .confirm({
+            title: "提示",
+            message: "您还没有登陆，请登陆",
+          })
+          .then(() => {
+            // on confirm
+            this.$router.push("/login");
+          })
+          .catch(() => {
+            // on cancel
+          });
       }
     },
   },
@@ -315,12 +340,13 @@ export default {
     // 从vuex中获取时间戳
     ...mapState({
       vxcheckIn: "checkIn",
-      RealName: "RealName",
+      RealName: "uname",
       userID: "userID",
     }),
   },
   // 挂载
   mounted() {
+    console.log("发送了一个请求");
     let id = this.$route.params.id;
     // 将房源id传入变量中
     this.rid = id;

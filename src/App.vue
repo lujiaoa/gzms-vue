@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <router-view/>
+    <keepAlive>
+      <router-view v-if="$route.meta.keepAlive" />
+    </keepAlive>
+    <router-view v-if="!$route.meta.keepAlive" />
   </div>
 </template>
 
 <style>
-
 </style>
